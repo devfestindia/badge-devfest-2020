@@ -208,7 +208,7 @@
   </div>
   <div class="preview-panel">
     <canvas></canvas>
-    <div class="download-fab" onclick="download()">
+    <div class="download-fab" onclick="download()" id = "download">
       <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" fill="#fff">
         <path d="M0 0h24v24H0V0z" fill="none" />
         <path
@@ -221,12 +221,16 @@
 <script>
   const canvas = document.querySelector('canvas')
   const ctx = canvas.getContext('2d')
-  let image = ''
+  let image = '';
   let shape = 'original'
+  document.getElementById('download').style.visibility = "hidden";
+  
 
   const uploadImage = () => {
     
     document.querySelector('input.profile-input').click()
+    document.getElementById('download').style.visibility = "visible";
+    
   }
 
   const changeShape = (type) => {
@@ -335,7 +339,10 @@
     const url = canvas.toDataURL('image/png;base64')
     a.download = 'badge.png'
     a.href = url
+    
     a.click()
+   
+    
   }
 </script>
 
