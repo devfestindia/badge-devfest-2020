@@ -163,6 +163,16 @@
     padding-top:40px;
   }
 
+  input.category-input {
+    font-size: 15px;
+    padding: 8px;
+    background: #fff;
+    border: 1px solid #cacaca;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 360px;
+}
+
   @media screen and (max-width: 860px) {
     header {
       height: 56px;
@@ -202,6 +212,17 @@
       <input class="profile-input" type="file" accept="image/*" onchange="upload(event)" hidden />
     </div>
     <div class="input">
+      <label for="category">Track Name</label>
+      <input id="category" list="gde-category" class="category-input" type="text" oninput="draw()" />
+      <datalist id="gde-category">
+        <option value="Mobile">
+        <option value="Web">
+        <option value="Google Cloud">
+        <option value="Design">
+      </datalist>
+    </div>
+    <div class="input">
+    
       <label>Image Shape</label>
       <div class="select-container">
         <div class="select" id="original" selected onclick="changeShape('original')">Original</div>
@@ -291,6 +312,8 @@
 
   const draw = () => {
 
+    const category = document.querySelector('input.category-input').value || 'Track Name';
+
     if (image) {
       switch (shape) {
         case 'original': {
@@ -323,19 +346,19 @@
     const height = banner.height / banner.width * canvas.width
     const y = canvas.height - height
     const fontSize = canvas.width / 17.2
-    const fontY = y + height * 0.7
+    const fontY = y + height * 0.96
     ctx.drawImage(banner, 0, 0, banner.width, banner.height, 0, y, canvas.width, height)
 
     ctx.fillStyle = '#757575'
     ctx.textAlign = 'center'
-    ctx.textBaseline = 'middle'
+    ctx.textBaseline = 'middle' 
     ctx.font = `${fontSize}px Google Sans, sans-serif`
-    // ctx.fillText(category, canvas.width / 2, fontY)
+    ctx.fillText(category, canvas.width / 2, fontY)
 
     if (shape === 'circle') {
       ctx.globalCompositeOperation='destination-in'
       ctx.beginPath()
-      ctx.arc(canvas.width / 2, canvas.height / 2, canvas.height / 2, 0, Math.PI * 2)
+      ctx.arc(canvas.width / 2, canvas.height / 2, canvas.height / 3, 0, Math.PI * 2)
       ctx.closePath()
       ctx.fill()
     }
